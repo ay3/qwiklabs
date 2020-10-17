@@ -43,7 +43,7 @@ cat deployment.yaml | grep image
 kubectl create -f deployment.yaml
 kubectl create -f service.yaml
 
-# Task 5
+## Task 5
 kubectl scale deployment valkyrie-dev --replicas=3
 
 cd ~/valkyrie-app
@@ -56,7 +56,7 @@ docker push gcr.io/$PROJECT_ID/valkyrie-app:v0.0.2
 kubectl edit deployment valkyrie-dev
 # Change the image tag from v0.0.1 to v0.0.2. then save and exit.
 
-# task 6
+## task 6
 
 export POD_NAME=$(kubectl get pods --namespace default -l "app.kubernetes.io/component=jenkins-master" -l "app.kubernetes.io/instance=cd" -o jsonpath="{.items[0].metadata.name}")
 kubectl port-forward $POD_NAME 8080:8080 >> /dev/null &
