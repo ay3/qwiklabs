@@ -1,5 +1,5 @@
-### Deploy to Kubernetes in Google Cloud: Challenge Lab ###
-#Task1
+# Deploy to Kubernetes in Google Cloud: Challenge Lab ###
+## Task1
 
 source <(gsutil cat gs://cloud-training/gsp318/marking/setup_marking.sh)
 
@@ -7,7 +7,6 @@ cd
 PROJECT_ID=$GOOGLE_CLOUD_PROJECT
 gcloud source repos clone valkyrie-app --project=$PROJECT_ID
 
-# Create a Dockerfile under the valkyrie-app
 cd ~/valkyrie-app
 
 cat > Dockerfile <<EOF
@@ -20,7 +19,7 @@ EOF
 
 docker build -t valkyrie-app:v0.0.1 .
 
-#Task2
+## Task2
 cd ~/valkyrie-app
 docker run -p 8080:8080 --name valkyrie-app valkyrie-app:v0.0.1
 
@@ -28,17 +27,15 @@ cd ~/marking
 ./step1.sh
 ./step2.sh
 
-# Task 3
+## Task 3
 docker tag valkyrie-app:v0.0.1 gcr.io/$PROJECT_ID/valkyrie-app:v0.0.1
 docker push gcr.io/$PROJECT_ID/valkyrie-app:v0.0.1
 
-####################### You can work through tasks 1-3 before you need the provisioning to be finished. #######################
+#### ### You can work through tasks 1-3 before you need the provisioning to be finished. #############
 
-# Task 4
+## Task 4
 cd ~/valkyrie-app/k8s
 gcloud container clusters get-credentials valkyrie-dev --zone us-east1-d	
-
-# Use a text editor to modify deployment.yaml and replace IMAGE_HERE with gcr.io/YOUR-PROJECT-ID/valkyrie-app:v0.0.1
 
 cat deployment.yaml | grep image
 sed -i "s/IMAGE_HERE/gcr.io\/$PROJECT_ID\/valkyrie-app:v0.0.1/g" deployment.yaml
@@ -68,10 +65,9 @@ printf $(kubectl get secret cd-jenkins -o jsonpath="{.data.jenkins-admin-passwor
 
 gcloud source repos list
 
-####################### jenkins login #######################
-####################### create pipeline #######################
-# valkyrie-app   
-# https://source.developers.google.com/p/$PROJECT_ID/r/valkyrie-app
+##### ##### jenkins login #######################
+##### ##### create pipeline #######################
+##### ##### valkyrie-app https://source.developers.google.com/p/$PROJECT_ID/r/valkyrie-app
 
 sed -i "s/YOUR_PROJECT/$PROJECT_ID/g" Jenkinsfile
 sed -i "s/green/orange/g" source/html.go
