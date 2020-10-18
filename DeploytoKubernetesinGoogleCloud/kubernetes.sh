@@ -71,7 +71,7 @@ gcloud source repos list
 
 sed -i "s/YOUR_PROJECT/$PROJECT_ID/g" Jenkinsfile
 sed -i "s/green/orange/g" source/html.go
-git config --global user.email "student-xx-xxx@qwiklabs.net"
+git config --global user.email "$(gcloud config get-value core/account)"
 git config --global user.name "student"
 git add .
 git commit -m 'change green to orange'
